@@ -77,5 +77,4 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 
 #3D assets
-Content/StarterContent/HDRI/*
-Content/StarterContent/Textures/*
+/Content/StarterContent/*
