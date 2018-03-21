@@ -35,6 +35,10 @@ void UGrabber::Grab()
 }
 void UGrabber::letGo()
 {
+	if (!physicsHandle) {
+		UE_LOG(LogTemp, Error, TEXT("Physic handle problem"));
+		return;
+	}
 	physicsHandle->ReleaseComponent();
 
 }
@@ -127,6 +131,10 @@ const FHitResult UGrabber::GetFirstPhysicsBodyInReach()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	if (!physicsHandle) {
+		UE_LOG(LogTemp, Error, TEXT("Physic handle problem"));
+		return;
+	}
 	if (physicsHandle->GrabbedComponent)
 		physicsHandle->SetTargetLocation(getEndTrace());
 

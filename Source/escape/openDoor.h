@@ -37,9 +37,9 @@ private:
 	float openAngle = -70.f;
 
 	UPROPERTY(editAnywhere)
-	ATriggerVolume* plate;	
+	ATriggerVolume* plate = nullptr;	
 	
-	AActor * myOwner;
+	AActor * myOwner = nullptr;
 
 	float getTotalActorsMass();
 };

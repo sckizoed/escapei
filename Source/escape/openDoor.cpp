@@ -26,6 +26,14 @@ void UopenDoor::BeginPlay()
 {
 	Super::BeginPlay();
 	myOwner = GetOwner();
+	if (!myOwner) {
+		UE_LOG(LogTemp, Error, TEXT("owner not found"));
+		return;
+	}
+	if (!plate) {
+		UE_LOG(LogTemp, Error, TEXT("trigger volume not found"));
+		return;
+	}
 }
 
 void UopenDoor::openDoors()
@@ -57,10 +65,12 @@ void UopenDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 }
 
 float UopenDoor::getTotalActorsMass() {
-	
+
 	float totalMass = 0.f;
 	TArray <AActor*> overlappingActors;
-
+	if (!plate) {
+		return totalMass;
+	}
 	plate->GetOverlappingActors(OUT overlappingActors);
 
 	for (const auto& actori : overlappingActors) {
