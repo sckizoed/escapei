@@ -7,6 +7,7 @@
 #include "openDoor.generated.h"
 
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPE_API UopenDoor : public UActorComponent
@@ -14,27 +15,25 @@ class ESCAPE_API UopenDoor : public UActorComponent
 	GENERATED_BODY()
 
 public:	
-	// Sets default values for this component's properties
 	UopenDoor();
 
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	void openDoors();
-	void closeDoors();
 
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	
+	UPROPERTY(BlueprintAssignable)
+		FDoorEvent OnOpen;
+	UPROPERTY(BlueprintAssignable)
+		FDoorEvent OnClose;
 
 private:	
+	
 	UPROPERTY(editAnywhere)
-	float OpenDoorDelay = 1.f;
-
-	float LastTimeDoorOpen;
-
-	UPROPERTY(visibleAnywhere)
-	float openAngle = -70.f;
+	float TriggerMass = 30.f;
 
 	UPROPERTY(editAnywhere)
 	ATriggerVolume* plate = nullptr;	
